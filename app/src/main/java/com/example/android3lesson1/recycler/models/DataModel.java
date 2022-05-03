@@ -1,6 +1,4 @@
-package com.example.android3lesson1.models;
-
-import org.w3c.dom.Text;
+package com.example.android3lesson1.recycler.models;
 
 public class DataModel {
 

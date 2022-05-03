@@ -1,14 +1,13 @@
-package com.example.android3lesson1.adapter;
+package com.example.android3lesson1.recycler.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android3lesson1.databinding.DataHolderBinding;
-import com.example.android3lesson1.models.DataModel;
+import com.example.android3lesson1.recycler.models.DataModel;
 
 import java.util.ArrayList;
 
