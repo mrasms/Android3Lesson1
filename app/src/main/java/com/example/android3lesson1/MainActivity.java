@@ -12,39 +12,53 @@ import com.example.android3lesson1.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {
+
     private ActivityMainBinding binding;
-    private MainViewModel mainViewModel = new MainViewModel();
+    private MainViewModel mainViewModel;
+    private DataAdapter dataAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
         super.onCreate(savedInstanceState);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
         addObserver();
         setListener();
     }
 
+
     private void addObserver() {
-        mainViewModel.mutableLiveData.observe(this, new Observer<Boolean>() {
+        mainViewModel.mutableLiveData.observe(this, new Observer<Integer>() {
             @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) {
-                    DataAdapter adapter = new DataAdapter(mainViewModel.list);
-                    binding.recycler.setAdapter(adapter);
+            public void onChanged(Integer integer) {
+                if (integer == mainViewModel.list.size()) {
+                    initAdapter();
+
                 }
+
             }
+
         });
     }
 
     private void setListener() {
-        binding.btnGetData.setOnClickListener(new View.OnClickListener() {
+        binding.btnFillList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.btnGetData.setVisibility(View.INVISIBLE);
-                mainViewModel.onClickBtn();
+                binding.btnFillList.setVisibility(View.INVISIBLE);
+                mainViewModel.fillList();
             }
         });
+    }
+
+    private void initAdapter() {
+        dataAdapter = new DataAdapter(mainViewModel.list);
+        binding.recycler.setAdapter(dataAdapter);
+
     }
 
 }
