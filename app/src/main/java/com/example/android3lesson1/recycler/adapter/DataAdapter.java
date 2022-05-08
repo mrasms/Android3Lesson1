@@ -1,5 +1,6 @@
 package com.example.android3lesson1.recycler.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -12,7 +13,8 @@ import com.example.android3lesson1.recycler.models.DataModel;
 import java.util.ArrayList;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.Holder> {
-    private ArrayList<DataModel> list = new ArrayList<>();
+
+    private ArrayList<DataModel> list;
 
     public DataAdapter(ArrayList<DataModel> list) {
         this.list = list;
@@ -22,6 +24,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.Holder> {
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         DataHolderBinding binding = DataHolderBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+
         return new DataAdapter.Holder(binding);
     }
 
@@ -30,6 +33,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.Holder> {
         holder.onBind(list.get(position));
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public int getItemCount() {
         return list.size();
