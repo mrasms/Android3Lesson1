@@ -14,17 +14,18 @@ import java.util.ArrayList;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.Holder> {
 
-    private ArrayList<DataModel> list;
+    private ArrayList<DataModel> list = new ArrayList<>();
 
-    public DataAdapter(ArrayList<DataModel> list) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setList(ArrayList<DataModel> list) {
         this.list = list;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         DataHolderBinding binding = DataHolderBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-
         return new DataAdapter.Holder(binding);
     }
 
@@ -33,13 +34,13 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.Holder> {
         holder.onBind(list.get(position));
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     @Override
     public int getItemCount() {
         return list.size();
     }
 
     public class Holder extends RecyclerView.ViewHolder {
+
         private DataHolderBinding binding;
 
         public Holder(@NonNull DataHolderBinding binding) {
