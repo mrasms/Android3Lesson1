@@ -9,6 +9,9 @@ import android.view.View;
 
 import com.example.android3lesson1.recycler.adapter.DataAdapter;
 import com.example.android3lesson1.databinding.ActivityMainBinding;
+import com.example.android3lesson1.recycler.models.DataModel;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -20,28 +23,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
+        initAdapter();
         addObserver();
         setListener();
     }
 
-
     private void addObserver() {
-        mainViewModel.mutableLiveData.observe(this, new Observer<Integer>() {
+        mainViewModel.mutableLiveData.observe(this, new Observer<ArrayList<DataModel>>() {
             @Override
-            public void onChanged(Integer integer) {
-                if (integer == mainViewModel.list.size()) {
-                    initAdapter();
-
-                }
-
+            public void onChanged(ArrayList<DataModel> dataModels) {
+                dataAdapter.setList(dataModels);
             }
-
         });
     }
 
@@ -56,9 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initAdapter() {
-        dataAdapter = new DataAdapter(mainViewModel.list);
+        dataAdapter = new DataAdapter();
         binding.recycler.setAdapter(dataAdapter);
-
     }
-
 }
