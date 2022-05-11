@@ -2,25 +2,22 @@ package com.example.android3lesson1.recycler.adapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android3lesson1.databinding.DataHolderBinding;
+import com.example.android3lesson1.recycler.interfaces.OnItemClickListener;
 import com.example.android3lesson1.recycler.models.DataModel;
 
 import java.util.ArrayList;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.Holder> {
 
+    private OnItemClickListener onItemClickListener;
     private ArrayList<DataModel> list = new ArrayList<>();
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void setList(ArrayList<DataModel> list) {
-        this.list = list;
-        notifyDataSetChanged();
-    }
 
     @NonNull
     @Override
@@ -39,6 +36,20 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.Holder> {
         return list.size();
     }
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public ArrayList<DataModel> getList() {
+        return list;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setList(ArrayList<DataModel> list) {
+        this.list = list;
+        notifyDataSetChanged();
+    }
+
     public class Holder extends RecyclerView.ViewHolder {
 
         private DataHolderBinding binding;
@@ -50,6 +61,12 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.Holder> {
 
         public void onBind(DataModel model) {
             binding.tvData.setText(model.getText());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListener.onItemClick(model);
+                }
+            });
         }
     }
 }
