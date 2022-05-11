@@ -1,6 +1,8 @@
 package com.example.android3lesson1.recycler.models;
 
-public class DataModel {
+import java.io.Serializable;
+
+public class DataModel implements Serializable {
 
     private String text;
 
