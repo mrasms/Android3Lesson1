@@ -1,4 +1,4 @@
-package com.example.android3lesson1.recycler.adapter;
+package com.example.android3lesson1.ui.adapters;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android3lesson1.databinding.DataHolderBinding;
-import com.example.android3lesson1.recycler.interfaces.OnItemClickListener;
-import com.example.android3lesson1.recycler.models.DataModel;
+import com.example.android3lesson1.interfaces.OnItemClickListener;
+import com.example.android3lesson1.models.DataModel;
 
 import java.util.ArrayList;
 
@@ -40,11 +40,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.Holder> {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public ArrayList<DataModel> getList() {
-        return list;
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
+        @SuppressLint("NotifyDataSetChanged")
     public void setList(ArrayList<DataModel> list) {
         this.list = list;
         notifyDataSetChanged();

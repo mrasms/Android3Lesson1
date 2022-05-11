@@ -3,7 +3,7 @@ package com.example.android3lesson1.ui.fragments.home;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.android3lesson1.recycler.models.DataModel;
+import com.example.android3lesson1.models.DataModel;
 
 import java.util.ArrayList;
 

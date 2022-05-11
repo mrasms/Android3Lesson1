@@ -1,4 +1,4 @@
-package com.example.android3lesson1.recycler.models;
+package com.example.android3lesson1.models;
 
 import java.io.Serializable;
 

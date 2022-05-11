@@ -14,9 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android3lesson1.databinding.FragmentHomeBinding;
-import com.example.android3lesson1.recycler.interfaces.OnItemClickListener;
-import com.example.android3lesson1.recycler.adapter.DataAdapter;
-import com.example.android3lesson1.recycler.models.DataModel;
+import com.example.android3lesson1.interfaces.OnItemClickListener;
+import com.example.android3lesson1.ui.adapters.DataAdapter;
+import com.example.android3lesson1.models.DataModel;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private HomeViewModel homeViewModel;
+    private HomeViewModel homeViewModel = new HomeViewModel();
     private DataAdapter dataAdapter = new DataAdapter();
 
     @Override
@@ -43,15 +43,6 @@ public class HomeFragment extends Fragment {
         checkList();
     }
 
-    private void addObserver() {
-        homeViewModel.mutableLiveData.observe(getViewLifecycleOwner(), new Observer<ArrayList<DataModel>>() {
-            @Override
-            public void onChanged(ArrayList<DataModel> dataModels) {
-                dataAdapter.setList(dataModels);
-            }
-        });
-    }
-
     private void initAdapter() {
         binding.recycler.setAdapter(dataAdapter);
         dataAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -62,11 +53,20 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    private void addObserver() {
+        homeViewModel.mutableLiveData.observe(getViewLifecycleOwner(), new Observer<ArrayList<DataModel>>() {
+            @Override
+            public void onChanged(ArrayList<DataModel> dataModels) {
+                dataAdapter.setList(dataModels);
+            }
+        });
+    }
+
     private void checkList() {
-        if (!dataAdapter.getList().isEmpty()) {
-            binding.btnFillList.setVisibility(View.INVISIBLE);
-        } else {
+        if (homeViewModel.mutableLiveData.getValue() == null) {
             setListener();
+        } else {
+            binding.btnFillList.setVisibility(View.INVISIBLE);
         }
     }
 
